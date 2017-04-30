@@ -1,5 +1,114 @@
 html * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 ul, li { list-style: none; }
+
+/*tbody {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+thead, tbody tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}*/
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  tbody, thead {
+    display: block;
+  }
+
+  tr {
+    display: table;
+    height: 36px;
+    width: 100%;
+
+    &.start, &.end {
+      display: block;
+      height: 0;
+    }
+  }
+
+  td, th {
+    border-bottom: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+  }
+
+  thead {
+    box-sizing: border-box;
+    tr {
+      box-sizing: border-box;
+      border: none;
+      margin: 0;
+    }
+    th {
+      box-sizing: border-box;
+      height: 100%;
+    }
+    th:nth-last-child(2){
+      border-right: none;
+    }
+  }
+}
+
+
+thead {
+  display: block;
+}
+tbody {
+  max-height: 200px;
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: block;
+}
+
+tbody tr:nth-child(even) {
+  td {
+    background-color: #e8e8e8;
+  }
+}
+
+tbody tr td, th{
+  background-color: #ddd;
+}
+
+.virtual-list {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+  margin: 10px;
+
+  li {
+    box-sizing: border-box;
+    display: block;
+/*    display: flex;
+    flex-direction: row;*/
+    height: 36px;
+    border: none;
+    padding: 0;
+
+    span {
+      display: inline-block;
+      line-height: 26px;
+    }
+
+    &:nth-child(even){
+      background-color: #e8e8e8;
+    }
+  }
+
+  .start, .end {
+    display: block;
+  }
+}
+
