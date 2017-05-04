@@ -5,33 +5,20 @@ html * {
 }
 ul, li { list-style: none; }
 
-/*tbody {
-  display: block;
-  overflow-y: auto;
-  overflow-x: hidden;
+.virtual-table .virtual-list {
+  border: none;
 }
 
-thead, tbody tr {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-}*/
-
 table {
+  position: relative;
   border-collapse: collapse;
-  table-layout: fixed;
   width: 100%;
-  tbody, thead {
-    display: block;
-  }
 
   tr {
-    display: table;
-    height: 36px;
+    height: 32px;
     width: 100%;
 
     &.start, &.end {
-      display: block;
       height: 0;
     }
   }
@@ -42,13 +29,9 @@ table {
   }
 
   thead {
-    box-sizing: border-box;
-    tr {
-      box-sizing: border-box;
-      border: none;
-      margin: 0;
-    }
     th {
+      background-color: #aaa;
+      color: #fff;
       box-sizing: border-box;
       height: 100%;
     }
@@ -56,29 +39,18 @@ table {
       border-right: none;
     }
   }
-}
 
+  tbody {
+    tr:first-of-type td {
+      border-top: none !important;
+    }
 
-thead {
-  display: block;
-}
-tbody {
-  max-height: 200px;
-  height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  display: block;
-}
-
-tbody tr:nth-child(even) {
-  td {
-    background-color: #e8e8e8;
+    tr:nth-child(even) {
+      td {
+        background-color: #e8e8e8;
+      }
+    }
   }
-}
-
-tbody tr td, th{
-  background-color: #ddd;
 }
 
 .virtual-list {
@@ -86,13 +58,11 @@ tbody tr td, th{
   overflow-y: auto;
   overflow-x: hidden;
   border: 1px solid #ccc;
-  margin: 10px;
 
   li {
     box-sizing: border-box;
     display: block;
-/*    display: flex;
-    flex-direction: row;*/
+
     height: 36px;
     border: none;
     padding: 0;
@@ -109,6 +79,88 @@ tbody tr td, th{
 
   .start, .end {
     display: block;
+  }
+}
+
+.drop-over {
+  padding: 200px;
+
+  [draggable]{
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+}
+
+.image-uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 100px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 500px;
+  height: 350px;
+
+  &.dropzone.active {
+    border: 2px dotted red;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-size: cover;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .info>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 14px;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px #ccc;
+
+    i {
+      font-size: 26px;
+      color: #999;
+    }
+  }
+
+  &>div, label {
+    background-color: #fff;
+    text-align: center;
+    padding: 30px;
+    display: inline-block;
+  }
+
+  i {
+    font-size: 80px;
+    color: #ccc;
+    margin: 10px;
+  }
+
+  input[type=file] {
+    display: none;
+    pointer-events: none;
   }
 }
 

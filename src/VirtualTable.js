@@ -53,9 +53,7 @@ export default class VirtualList extends Component {
   componentDidMount(){
     this.virtualList = ReactDOM.findDOMNode(this.refs.virtualList)
     this.virtualList.addEventListener('scroll', this.handleScroll)
-
     this.updateHeadersWidth()
-
     this.calculateAllHeights(this.props)
   }
 
@@ -67,13 +65,7 @@ export default class VirtualList extends Component {
     window.requestAnimationFrame(() => {
       const thead = ReactDOM.findDOMNode(this.refs.thead)
       const ths = Array.from(thead.querySelectorAll('tr th'))
-      let borderSize = null
-
       Array.from(this.virtualList.querySelectorAll ('tr:nth-child(2) td')).forEach((el, i) => {
-        if (!borderSize) {
-          borderSize = this.getStyle(el, 'border-right-width')
-        }
-        //ths[i].style.width = (parseFloat(this.getStyle(el, 'width')) - parseFloat(0)) + 'px'
         ths[i].style.width = this.getStyle(el, 'width')
       })
     })
@@ -85,7 +77,6 @@ export default class VirtualList extends Component {
 
   calculateAllHeights(props){
     const { itemHeight, blockSize } = props
-
     const qtd = props.itens.length
     const height = parseFloat(this.getStyle(this.virtualList, 'height'))
     const totalHeight = qtd * itemHeight
@@ -127,9 +118,15 @@ export default class VirtualList extends Component {
       endHeight,
     } = this.state
 
-    return <div><table className="virtual-table"><thead ref="thead">
-        { React.createElement(this.props.header) }
-        </thead><tbody ref="virtualList">
+    return <div className="virtual-table">
+      <table>
+        <thead ref="thead">
+        { React.createElement(this.props.header, {}) }
+        </thead>
+      </table>
+      <div className="virtual-list"  ref="virtualList">
+        <table className="virtual-table">
+          <tbody>
         <tr className="start" style={{height: Math.floor(startHeight) || 0}}></tr>
         {
           this.getItensFromCurrentPosition(itens).map((it, k) => (
@@ -137,8 +134,9 @@ export default class VirtualList extends Component {
           ))
         }
         <tr className="end" style={{ height: Math.floor(endHeight) || 0}}></tr>
-      </tbody>
-      </table>
+        </tbody>
+        </table>
+    </div>
     </div>
   }
 }
